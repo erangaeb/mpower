@@ -1,0 +1,11 @@
+*.pyc
+.pydevproject
+.ropeproject
+.project
+,bdump.*
+site_media/CACHE/*
+reports/*
+target/*
+local_settings.py
+site_media/*
+var/*
