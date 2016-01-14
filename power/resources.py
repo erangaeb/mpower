@@ -43,16 +43,10 @@ class PowerResource(ModelResource):
 
     def get_latest(self, request, **kwargs):
         """
-        When request comes with 'invoices/<invoice_id>/history' url this method
-        will be invoke, need to extract history entries that matches with
-        corresponding invoice and render it to response
+        When request comes with 'mesuments/<id>/latest' url this method
+        will be invoke, need to extract latest mesument entry and return it.
 
-        When request comes with 'invoice/<invoice_id>/history/<history_id>' url
-        need t extract matching history entry(match with invoice_id) and render
-        with response
-
-        Actual history retrieving function delegates to history_api
-        HistoryManger
+        The response will be return as a JSON object
         """
         # need to check the
         #   1. request type
@@ -64,24 +58,11 @@ class PowerResource(ModelResource):
         data = json.dumps(struct[0])
 
         resp_dict = {}
-
         resp_dict['voltage'] = str(obj.voltage)
         resp_dict['current'] = str(obj.current)
         resp_dict['frequency'] = str(obj.frequency)
         resp_dict['kwh'] = str(obj.kwh)
 
-        '''
-        resp_dict['voltage'] = "345"
-        resp_dict['current'] = "12"
-        resp_dict['frequncy'] = "57"
-        resp_dict['kwh'] = "31"
-        '''
-
-        print(json.dumps(resp_dict))
-        print(obj.current)
-        print(obj.voltage)
-        print(data)
-        print(json.dumps(resp_dict))
         response = HttpResponse(json.dumps(resp_dict),
                                            mimetype='application/json')
         response['Access-Control-Allow-Origin'] = '*'
